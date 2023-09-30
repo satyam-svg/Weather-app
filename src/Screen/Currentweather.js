@@ -1,23 +1,28 @@
 import React from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-const Currentweather = () => {
+import { weatherType } from '../utilities/Weathertype';
+const Currentweather = ({weatherData}) => {
+  console.log(weatherData)
+  const {
+    main:{temp,feels_like,temp_max,temp_min},weather
+  }=weatherData
+  const weatherCondition=weather[0].main
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.innerContainer}>
       <MaterialCommunityIcons name="weather-hail" size={24} color="black" style={styles.icon}/>
-        <Text style={styles.upper}>6</Text>
-        <Text style={styles.temp}>Feels Like 5</Text>
-        <Text style={styles.temp}>High:8 Low:6</Text>
+        
+        <Text style={styles.temp}>{`Feels Like ${feels_like}`}</Text>
+      <Text style={styles.temp}>{`High:${temp_max} Low:${temp_min}`}</Text>
       </View>
       <View style={styles.body}>
-        <Text style={styles.desc}>It's Sunny Weather</Text>
-        <Text style={styles.desc1}>It's Perfect t-shirt Weather</Text>
+        <Text style={styles.desc1}>{weather[0].description}</Text>
+        <Text style={styles.desc}>{weatherType[weatherCondition].message}.</Text>
       </View>
     </SafeAreaView>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
